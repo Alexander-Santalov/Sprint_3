@@ -27,7 +27,7 @@ public class CreatedCourierTest extends TestBase {
     @Story("Успешное создание учетной записи")
     public void createNewCourierTest() {
         Courier courier = new Courier(RandomStringUtils.randomAlphabetic(30), "12345", "Alex");
-        boolean isCreatedCourier = CourierHelper.create(courier);
+        boolean isCreatedCourier = CourierHelper.createCourier(courier);
         courierId = CourierHelper.login(new CourierAuth(courier.getLogin(), courier.getPassword()));
         assertTrue(isCreatedCourier);
     }
@@ -37,7 +37,7 @@ public class CreatedCourierTest extends TestBase {
     public void createRepeatCourierTest() {
         Courier courier = new Courier("Santalov." + new Random().nextInt(100),
                 "12345", "Alex");
-        CourierHelper.create(courier);
+        CourierHelper.createCourier(courier);
         courierId = CourierHelper.login(new CourierAuth(courier.getLogin(), courier.getPassword()));
         String message = CourierHelper.badCreate(courier, 409);
         assertThat(message, equalTo("Этот логин уже используется"));

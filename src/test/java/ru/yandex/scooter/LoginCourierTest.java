@@ -16,7 +16,7 @@ public class LoginCourierTest extends TestBase {
     @Story("Успешный логин")
     public void loginCourierTest() {
         Courier courier = new Courier(RandomStringUtils.randomAlphabetic(10), "12345", "Alex");
-        CourierHelper.create(courier);
+        CourierHelper.createCourier(courier);
         int courierId = CourierHelper.login(new CourierAuth(courier.getLogin(), courier.getPassword()));
         assertThat(courierId, notNullValue());
         CourierHelper.delete(courierId);

@@ -6,7 +6,7 @@ import static io.restassured.RestAssured.given;
 
 public class CourierHelper {
     @Step("Отправка POST запроса на ручку /api/v1/courier для создания курьера")
-    public static boolean create(Courier courier) {
+    public static boolean createCourier(Courier courier) {
         return given()
                 .header("Content-type", "application/json")
                 .body(courier)
