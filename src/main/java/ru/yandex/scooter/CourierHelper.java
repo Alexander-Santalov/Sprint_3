@@ -5,13 +5,15 @@ import io.qameta.allure.Step;
 import static io.restassured.RestAssured.given;
 
 public class CourierHelper {
+    private static final String COURIER_PATH = "/api/v1/courier/";
+
     @Step("Отправка POST запроса на ручку /api/v1/courier для создания курьера")
     public static boolean createCourier(Courier courier) {
         return given()
                 .header("Content-type", "application/json")
                 .body(courier)
                 .when()
-                .post("/api/v1/courier")
+                .post(COURIER_PATH)
                 .then()
                 .assertThat()
                 .statusCode(201)
@@ -25,7 +27,7 @@ public class CourierHelper {
                 .header("Content-type", "application/json")
                 .body(auth)
                 .when()
-                .post("/api/v1/courier/login")
+                .post(COURIER_PATH + "login")
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -38,7 +40,7 @@ public class CourierHelper {
         given()
                 .header("Content-type", "application/json")
                 .when()
-                .delete("/api/v1/courier/" + courierId)
+                .delete(COURIER_PATH + courierId)
                 .then();
     }
 
@@ -48,7 +50,7 @@ public class CourierHelper {
                 .header("Content-type", "application/json")
                 .body(courier)
                 .when()
-                .post("/api/v1/courier")
+                .post(COURIER_PATH)
                 .then()
                 .assertThat()
                 .statusCode(code)
@@ -62,7 +64,7 @@ public class CourierHelper {
                 .header("Content-type", "application/json")
                 .body(auth)
                 .when()
-                .post("/api/v1/courier/login")
+                .post(COURIER_PATH + "login")
                 .then()
                 .assertThat()
                 .statusCode(code)
