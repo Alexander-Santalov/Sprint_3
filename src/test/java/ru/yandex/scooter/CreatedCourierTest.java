@@ -5,7 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Test;
 
-
+import static org.apache.http.HttpStatus.*;
 import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,7 +39,7 @@ public class CreatedCourierTest extends TestBase {
                 "12345", "Alex");
         CourierHelper.createCourier(courier);
         courierId = CourierHelper.login(new CourierAuth(courier.getLogin(), courier.getPassword()));
-        String message = CourierHelper.badCreate(courier, 409);
+        String message = CourierHelper.badCreate(courier, SC_CONFLICT);
         assertThat(message, equalTo("Этот логин уже используется"));
     }
 
@@ -47,7 +47,7 @@ public class CreatedCourierTest extends TestBase {
     @Story("Создание учетной записи без пароля")
     public void createNewCourierWithoutPasswordTest() {
         Courier courier = new Courier(RandomStringUtils.randomAlphabetic(10), null, "Alex");
-        String message = CourierHelper.badCreate(courier, 400);
+        String message = CourierHelper.badCreate(courier, SC_BAD_REQUEST);
         assertThat(message, equalTo("Недостаточно данных для создания учетной записи"));
     }
 
@@ -55,7 +55,7 @@ public class CreatedCourierTest extends TestBase {
     @Story("Создание учетной записи без логина")
     public void createNewCourierWithoutLoginTest() {
         Courier courier = new Courier(null, "12345", "Alex");
-        String message = CourierHelper.badCreate(courier, 400);
+        String message = CourierHelper.badCreate(courier, SC_BAD_REQUEST);
         assertThat(message, equalTo("Недостаточно данных для создания учетной записи"));
     }
 }

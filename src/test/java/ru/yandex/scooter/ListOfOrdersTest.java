@@ -3,7 +3,7 @@ package ru.yandex.scooter;
 import io.qameta.allure.*;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
-
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -16,7 +16,7 @@ public class ListOfOrdersTest extends TestBase {
     public void getListOrdersTest() {
         ValidatableResponse response = OrderHelper.getOrdersList();
         int actualCode = response.extract().statusCode();
-        assertThat(actualCode, is(200));
+        assertThat(actualCode, is(SC_OK));
         response.assertThat().body("orders", hasSize(30));
     }
 }

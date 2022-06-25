@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import io.qameta.allure.*;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -26,14 +27,14 @@ public class LoginCourierTest extends TestBase {
     @Story("Запрос с несуществующей парой логин-пароль")
     public void nonexistentLoginCourierTest() {
         String message = CourierHelper.badLogin(new CourierAuth(RandomStringUtils.randomAlphabetic(15),
-                        RandomStringUtils.randomAlphabetic(15)),404);
+                RandomStringUtils.randomAlphabetic(15)), SC_NOT_FOUND);
         assertThat(message, equalTo("Учетная запись не найдена"));
     }
 
     @Test
     @Story("Запрос без логина")
     public void loginCourierTestWithoutLogin() {
-        String message = CourierHelper.badLogin(new CourierAuth(null, "12345"), 400);
+        String message = CourierHelper.badLogin(new CourierAuth(null, "12345"), SC_BAD_REQUEST);
         assertThat(message, equalTo("Недостаточно данных для входа"));
     }
 
@@ -41,7 +42,7 @@ public class LoginCourierTest extends TestBase {
     @Story("Запрос без пароля")
     public void loginCourierTestWithoutPassword() {
         String message = CourierHelper.badLogin(new CourierAuth(RandomStringUtils.randomAlphabetic(10),
-                null), 400);
+                null), SC_BAD_REQUEST);
         assertThat(message, equalTo("Недостаточно данных для входа"));
     }
 }
