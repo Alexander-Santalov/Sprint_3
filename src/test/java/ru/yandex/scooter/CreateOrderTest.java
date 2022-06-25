@@ -23,7 +23,7 @@ public class CreateOrderTest extends TestBase {
 
     @After
     public void tearDown() {
-        OrderHelper.cancel(trackId);
+        OrderHelper.cancelOrder(trackId);
     }
 
     public CreateOrderTest(List<String> color, int expectedCode) {
