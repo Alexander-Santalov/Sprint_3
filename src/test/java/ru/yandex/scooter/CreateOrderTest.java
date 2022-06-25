@@ -47,8 +47,8 @@ public class CreateOrderTest extends TestBase {
         Order order = Order.getRandomOrder(color);
         ValidatableResponse response = OrderHelper.create(order);
         int actualCode = response.extract().statusCode();
-        int trackId = response.extract().path("track");
         assertThat(actualCode, is(expectedCode));
+        int trackId = response.extract().path("track");
         assertThat(trackId, notNullValue());
     }
 }
